@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+version = '1.0'
+sourceCompatibility = 1.7
+mainClassName = "quadcopter.control.Main"
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main.java.srcDir 'src'
+    test.java.srcDir 'test'
+}
+
+dependencies {
+    compile 'net.java.jinput:jinput:2.0.+'
+    testCompile 'junit:junit:4.11'
+}
+
+jar {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest {
+        attributes 'Main-Class': 'quadcopter.control.Main'
+    }
+}
